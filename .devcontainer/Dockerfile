@@ -3,6 +3,12 @@
 ARG VARIANT="4.2"
 FROM ghcr.io/rocker-org/devcontainer/tidyverse:${VARIANT}
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libudunits2-dev \
+        libgdal-dev \
+        libgeos-dev \
+        libproj-dev
+    
 RUN install2.r --error --skipinstalled -n -1 \
         statip \
         patchwork \
@@ -22,6 +28,17 @@ RUN install2.r --error --skipinstalled -n -1 \
         tidymodels \
         markdown \
         ottr \
+        dplyr \
+        ggplot2 \
+        httr \
+        janitor \
+        jsonlite \
+        leaflet \
+        maptiles \
+        readr \
+        sf \
+        stringr \
+        tmap \
     && rm -rf /tmp/downloaded_packages \
     && R -q -e 'remotes::install_github("https://github.com/dcomtois/summarytools/tree/0-8-9")'
 
